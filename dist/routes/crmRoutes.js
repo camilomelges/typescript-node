@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const crmController_1 = require("../controllers/crmController");
 class Routes {
+    constructor() {
+        this.contactController = new crmController_1.ContactController();
+    }
     routes(app) {
         app.route('/')
             .get((req, res) => {
@@ -11,40 +15,19 @@ class Routes {
         // Contact 
         app.route('/contact')
             // GET endpoint 
-            .get((req, res) => {
             // Get all contacts            
-            res.status(200).send({
-                message: 'GET request successfulll!!!!'
-            });
-        })
+            .get(this.contactController.getContacts)
             // POST endpoint
-            .post((req, res) => {
-            // Create new contact         
-            res.status(200).send({
-                message: 'POST request successfulll!!!!'
-            });
-        });
+            // Create a new contact
+            .post(this.contactController.addNewContact);
         // Contact detail
+        // get a specific contact
         app.route('/contact/:contactId')
-            // get specific contact
-            .get((req, res) => {
-            // Get a single contact detail            
-            res.status(200).send({
-                message: 'GET request successfulll!!!!'
-            });
-        })
-            .put((req, res) => {
+            .get(this.contactController.getContactWithID)
             // Update a contact           
-            res.status(200).send({
-                message: 'PUT request successfulll!!!!'
-            });
-        })
-            .delete((req, res) => {
+            .put(this.contactController.updateContact)
             // Delete a contact     
-            res.status(200).send({
-                message: 'DELETE request successfulll!!!!'
-            });
-        });
+            .delete(this.contactController.deleteContact);
     }
 }
 exports.Routes = Routes;
