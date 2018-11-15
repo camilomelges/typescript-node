@@ -4,13 +4,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const crmRoutes_1 = require("./routes/crmRoutes");
+const _config_1 = require("./config/.config");
 class App {
-    constructor() {
+    constructor(NODE_ENV) {
         this.routePrv = new crmRoutes_1.Routes();
-        this.mongoUrl = 'mongodb://milo:sk7walk34@ds155243.mlab.com:55243/goweek_milo';
+        this.confs = new _config_1.Confs();
+        this.mongoUrl = '';
         this.app = express();
         this.config();
         this.routePrv.routes(this.app);
+        this.mongoUrl = this.confs.mongoUrl(NODE_ENV);
         this.mongoSetup();
     }
     mongoSetup() {
@@ -26,5 +29,5 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
 }
-exports.default = new App().app;
+exports.default = new App(process.env.NODE_ENV).app;
 //# sourceMappingURL=app.js.map

@@ -2,17 +2,20 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
 import { Routes } from "./routes/crmRoutes";
+import { Confs } from "./config/.config";
 
 class App {
 
     public app: express.Application;
     public routePrv: Routes = new Routes();
-    public mongoUrl: string = 'mongodb://milo:sk7walk34@ds155243.mlab.com:55243/goweek_milo';
+    public confs: Confs = new Confs();
+    public mongoUrl: string = '';
 
-    constructor() {
+    constructor(NODE_ENV: string) {
         this.app = express();
         this.config();
-        this.routePrv.routes(this.app); 
+        this.routePrv.routes(this.app);
+        this.mongoUrl = this.confs.mongoUrl(NODE_ENV); 
         this.mongoSetup();
     }
 
@@ -31,5 +34,4 @@ class App {
     }
 
 }
-
-export default new App().app;
+export default new App(process.env.NODE_ENV).app;
