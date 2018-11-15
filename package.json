@@ -8,6 +8,8 @@
     "@types/express": "^4.16.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
     "mongoose": "^5.3.12",
     "nodemon": "^1.18.6"
   },

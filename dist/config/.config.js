@@ -19,7 +19,7 @@ class Confs {
     serverPort(env) {
         switch (env) {
             case 'development':
-                var serverPort = 4000;
+                var serverPort = 3000;
                 break;
             case 'staging':
                 var serverPort = 3000;
