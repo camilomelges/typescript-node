@@ -17,18 +17,18 @@ class Confs {
         return mongoUrl;
     }
     serverPort(env) {
-        if (env === 'development') {
-            const serverPort = 3000;
-            return serverPort;
+        switch (env) {
+            case 'development':
+                var serverPort = 4000;
+                break;
+            case 'staging':
+                var serverPort = 3000;
+                break;
+            case 'production':
+                var serverPort = 3000;
+                break;
         }
-        else if (env === 'staging') {
-            const serverPort = 3000;
-            return serverPort;
-        }
-        else if (env === 'production') {
-            const serverPort = 3000;
-            return serverPort;
-        }
+        return serverPort;
     }
 }
 exports.Confs = Confs;

@@ -1,5 +1,7 @@
 import app from "./app";
-const PORT = 3000;
+import { Confs } from "./config/.config";
+
+const PORT = new Confs().serverPort(process.env.NODE_ENV);
 
 app.listen(PORT, () => {
     console.log('Express server listening on port ' + PORT);
