@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
-const crmModel_1 = require("../models/crmModel");
-const Contact = mongoose.model('Contact', crmModel_1.ContactSchema);
-class ContactController {
+const customerModel_1 = require("../models/customerModel");
+const Contact = mongoose.model('Contact', customerModel_1.CustomerSchema);
+class CustomerController {
     add(req, res) {
         let newContact = new Contact(req.body);
         newContact.save((err, contact) => {
@@ -46,5 +46,5 @@ class ContactController {
         });
     }
 }
-exports.ContactController = ContactController;
-//# sourceMappingURL=crmController.js.map
+exports.CustomerController = CustomerController;
+//# sourceMappingURL=customerController.js.map

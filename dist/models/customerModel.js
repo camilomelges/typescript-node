@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-exports.ContactSchema = new Schema({
+exports.CustomerSchema = new Schema({
     firstName: {
         type: String,
         required: 'First name are required'
@@ -23,4 +23,4 @@ exports.ContactSchema = new Schema({
         type: Number
     },
 }, { timestamps: true });
-//# sourceMappingURL=crmModel.js.map
+//# sourceMappingURL=customerModel.js.map

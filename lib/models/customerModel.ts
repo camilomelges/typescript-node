@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose = require("mongoose");
+import * as mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
-exports.ContactSchema = new Schema({
+
+export const CustomerSchema = new Schema({
     firstName: {
         type: String,
         required: 'First name are required'
@@ -22,5 +22,4 @@ exports.ContactSchema = new Schema({
     phone: {
         type: Number
     },
-}, { timestamps: true });
-//# sourceMappingURL=crmModel.js.map
+}, {timestamps: true});
