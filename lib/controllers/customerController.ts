@@ -9,7 +9,7 @@ export class CustomerController{
     public add (req: Request, res: Response) {                
         const newCustomer = new Customer(req.body);
     
-        newCustomer.save((err, customer) => {tes
+        newCustomer.save((err, customer) => {
             if(err){
                 res.send(err);
             }    
