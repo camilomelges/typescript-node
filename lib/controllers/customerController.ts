@@ -2,54 +2,54 @@ import * as mongoose from 'mongoose';
 import { CustomerSchema } from '../models/customerModel';
 import { Request, Response } from 'express';
 
-const Contact = mongoose.model('Contact', CustomerSchema);
+const Customer = mongoose.model('Contact', CustomerSchema);
 
 export class CustomerController{
 
     public add (req: Request, res: Response) {                
-        let newContact = new Contact(req.body);
+        const newCustomer = new Customer(req.body);
     
-        newContact.save((err, contact) => {
+        newCustomer.save((err, customer) => {
             if(err){
                 res.send(err);
             }    
-            res.json(contact);
+            res.json(customer);
         });
     }
 
     public list (req: Request, res: Response) {           
-        Contact.find({}, (err, contact) => {
+        Customer.find({}, (err, customers) => {
             if(err){
                 res.send(err);
             }
-            res.json(contact);
+            res.json(customers);
         });
     }
 
     public view (req: Request, res: Response) {           
-        Contact.findById(req.params.contactId, (err, contact) => {
+        Customer.findById(req.params.id, (err, customer) => {
             if(err){
                 res.send(err);
             }
-            res.json(contact);
+            res.json(customer);
         });
     }
 
     public update (req: Request, res: Response) {           
-        Contact.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
+        Customer.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, customer) => {
             if(err){
                 res.send(err);
             }
-            res.json(contact);
+            res.json(customer);
         });
     }
 
     public delete (req: Request, res: Response) {           
-        Contact.remove({ _id: req.params.contactId }, (err, contact) => {
+        Customer.remove({ _id: req.params.id }, (err) => {
             if(err){
                 res.send(err);
             }
-            res.json({ message: 'Successfully deleted contact!'});
+            res.json({ message: 'Successfully deleted customer!'});
         });
     }
 }

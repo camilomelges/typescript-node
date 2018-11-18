@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const crmRoutes_1 = require("./routes/crmRoutes");
+const routes_1 = require("./routes/routes");
 const _config_1 = require("./config/.config");
 class App {
     constructor(NODE_ENV) {
-        this.routePrv = new crmRoutes_1.Routes();
+        this.routePrv = new routes_1.Routes();
         this.confs = new _config_1.Confs();
         this.mongoUrl = '';
         this.app = express();

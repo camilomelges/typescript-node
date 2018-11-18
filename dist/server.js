@@ -5,6 +5,7 @@ const https = require("https");
 const fs = require("fs");
 const _config_1 = require("./config/.config");
 const PORT = new _config_1.Confs().serverPort(process.env.NODE_ENV);
+// Without https
 // app.listen(PORT, () => {
 //     console.log('Express server listening on port ' + PORT);
 // })

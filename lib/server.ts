@@ -5,6 +5,7 @@ import { Confs } from "./config/.config";
 
 const PORT = new Confs().serverPort(process.env.NODE_ENV);
 
+// Without https
 // app.listen(PORT, () => {
 //     console.log('Express server listening on port ' + PORT);
 // })

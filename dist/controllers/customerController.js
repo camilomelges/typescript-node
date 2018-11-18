@@ -2,47 +2,47 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const customerModel_1 = require("../models/customerModel");
-const Contact = mongoose.model('Contact', customerModel_1.CustomerSchema);
+const Customer = mongoose.model('Contact', customerModel_1.CustomerSchema);
 class CustomerController {
     add(req, res) {
-        let newContact = new Contact(req.body);
-        newContact.save((err, contact) => {
+        let newCustomer = new Customer(req.body);
+        newCustomer.save((err, customer) => {
             if (err) {
                 res.send(err);
             }
-            res.json(contact);
+            res.json(customer);
         });
     }
     list(req, res) {
-        Contact.find({}, (err, contact) => {
+        Customer.find({}, (err, customers) => {
             if (err) {
                 res.send(err);
             }
-            res.json(contact);
+            res.json(customers);
         });
     }
     view(req, res) {
-        Contact.findById(req.params.contactId, (err, contact) => {
+        Customer.findById(req.params.id, (err, customer) => {
             if (err) {
                 res.send(err);
             }
-            res.json(contact);
+            res.json(customer);
         });
     }
     update(req, res) {
-        Contact.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
+        Customer.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, customer) => {
             if (err) {
                 res.send(err);
             }
-            res.json(contact);
+            res.json(customer);
         });
     }
     delete(req, res) {
-        Contact.remove({ _id: req.params.contactId }, (err, contact) => {
+        Customer.remove({ _id: req.params.id }, (err) => {
             if (err) {
                 res.send(err);
             }
-            res.json({ message: 'Successfully deleted contact!' });
+            res.json({ message: 'Successfully deleted customer!' });
         });
     }
 }
