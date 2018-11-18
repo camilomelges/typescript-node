@@ -15,7 +15,7 @@ export class CustomerController{
             }    
             res.json(customer);
         });
-    }
+    }teste
 
     public list (req: Request, res: Response) {           
         Customer.find({}, (err, customers) => {
