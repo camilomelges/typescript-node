@@ -31,4 +31,8 @@ export class Confs {
         }
         return serverPort;
     }
+
+    public jwtAuthToken() {
+        return 'hash';
+    }
 }

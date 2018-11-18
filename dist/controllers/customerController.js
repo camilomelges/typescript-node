@@ -5,7 +5,7 @@ const customerModel_1 = require("../models/customerModel");
 const Customer = mongoose.model('Contact', customerModel_1.CustomerSchema);
 class CustomerController {
     add(req, res) {
-        let newCustomer = new Customer(req.body);
+        const newCustomer = new Customer(req.body);
         newCustomer.save((err, customer) => {
             if (err) {
                 res.send(err);

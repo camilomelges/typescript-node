@@ -1,19 +1,20 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
+import * as morgan from 'morgan';
 import { Routes } from "./routes/routes";
 import { Confs } from "./config/.config";
 
 class App {
 
     public app: express.Application;
-    public routePrv: Routes = new Routes();
-    public confs: Confs = new Confs();
-    public mongoUrl: string = '';
+    private routePrv: Routes = new Routes();
+    private confs: Confs = new Confs();
+    private mongoUrl: string = '';
 
     constructor(NODE_ENV: string) {
         this.app = express();
-        this.config();
+        this.config(NODE_ENV);
         this.routePrv.routes(this.app);
         this.mongoUrl = this.confs.mongoUrl(NODE_ENV); 
         this.mongoSetup();
@@ -26,11 +27,13 @@ class App {
         });    
     }
 
-    private config(): void{
-        // support application/json type post data
+    private config(NODE_ENV: string): void{
+        // Support application/json type post data
         this.app.use(bodyParser.json());
-        //support application/x-www-form-urlencoded post data
+        // Support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
+        // Show requests on console
+        if (NODE_ENV === 'development') this.app.use(morgan('dev'));
     }
 
 }

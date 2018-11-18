@@ -30,6 +30,9 @@ class Confs {
         }
         return serverPort;
     }
+    jwtAuthToken() {
+        return '$%@892d55ab9b95285833410aeeb844cdd7a1a0&¨$a975';
+    }
 }
 exports.Confs = Confs;
 //# sourceMappingURL=.config.js.map

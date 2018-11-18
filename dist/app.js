@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
 const routes_1 = require("./routes/routes");
 const _config_1 = require("./config/.config");
 class App {
@@ -11,7 +12,7 @@ class App {
         this.confs = new _config_1.Confs();
         this.mongoUrl = '';
         this.app = express();
-        this.config();
+        this.config(NODE_ENV);
         this.routePrv.routes(this.app);
         this.mongoUrl = this.confs.mongoUrl(NODE_ENV);
         this.mongoSetup();
@@ -22,11 +23,14 @@ class App {
             useNewUrlParser: true
         });
     }
-    config() {
-        // support application/json type post data
+    config(NODE_ENV) {
+        // Support application/json type post data
         this.app.use(bodyParser.json());
-        //support application/x-www-form-urlencoded post data
+        // Support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
+        // Show requests on console
+        if (NODE_ENV === 'development')
+            this.app.use(morgan('dev'));
     }
 }
 exports.default = new App(process.env.NODE_ENV).app;

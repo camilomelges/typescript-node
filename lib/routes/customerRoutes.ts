@@ -2,7 +2,7 @@ import { CustomerController } from "../controllers/customerController";
 
 export class CustomerRoutes {
 
-    public customerController: CustomerController = new CustomerController();
+    private customerController: CustomerController = new CustomerController();
     
     public router(app): void {
         app.route('/customers')           
@@ -12,6 +12,6 @@ export class CustomerRoutes {
         app.route('/customer/:id')
         .get(this.customerController.view)
         .put(this.customerController.update)
-        .delete(this.customerController.delete)
+        .delete(this.customerController.delete);
     }
 }
