@@ -12,6 +12,22 @@ export default class Timeline extends Component {
     newTweet: ''
   };
 
+  async getTweets() {
+    await api({
+      method: 'get',
+      url: '/tweets',
+      headers: {
+        authorization: 'Bearer ' + localStorage.getItem('@user:token'),
+        'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+      }
+    }).then(function (res) {
+      this.setState({ tweets: [res.data, ...this.state.tweets] });
+    })
+    .catch(function (err) {
+      console.log(err.message);
+    });
+  }
+
   async componentDidMount() {
     this.subscribeToEvents();
     const response = await api.get('tweets');
@@ -49,6 +65,7 @@ export default class Timeline extends Component {
   };
 
   render() {
+    this.getTweets();
     return (
       <div className="timeline-wrapper">
         <img src={twitterLogo} height={24} alt="user"/>

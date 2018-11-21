@@ -46,39 +46,19 @@ export default class Login extends Component {
     localStorage.setItem('@user:firstName', firstName);
     localStorage.setItem('@user:lastName', lastName);
 
-    // await api({
-    //   method: 'post',
-    //   url: '/register',
-    //   data: {
-    //     user: this.state
-    //   }
-    // }).then(function (res) {
-    //   localStorage.setItem('@user:token', res.data.token);
-    // })
-    // .catch(function (err) {
-    //   console.log(err);
-    // });
-
     await api({
-      method: 'get',
-      url: '/users',
-      headers: {
-        authorization: 'Bearer ' + localStorage.getItem('@user:token'),
-        'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'
-      },
+      method: 'post',
+      url: '/register',
       data: {
         user: this.state
       }
     }).then(function (res) {
-      console.log(res);
+      localStorage.setItem('@user:token', res.data.token);
+      return this.props.history.push('/timeline');
     })
     .catch(function (err) {
-      console.log(err.message);
+      return alert('Não foi possível efetuar seu cadastro!')
     });
-
-    return;
-    
-    this.props.history.push('/timeline');
   };
   
   render() {
