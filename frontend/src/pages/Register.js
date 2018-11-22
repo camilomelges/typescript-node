@@ -52,11 +52,11 @@ export default class Login extends Component {
       data: {
         user: this.state
       }
-    }).then(function (res) {
+    }).then(res => {
       localStorage.setItem('@user:token', res.data.token);
       return this.props.history.push('/timeline');
     })
-    .catch(function (err) {
+    .catch(err => {
       return alert('Não foi possível efetuar seu cadastro!')
     });
   };

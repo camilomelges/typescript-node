@@ -5,8 +5,9 @@ import * as mongoose from 'mongoose';
 import { CustomerSchema } from '../models/customerModel';
 import { UserSchema } from '../models/userModel';
 import { Request, Response } from 'express';
+import { debug } from 'util';
 const Customer = mongoose.model('Customer', CustomerSchema);
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model('user', UserSchema, 'users');
 
 // export class CustomerAuthentication {
 //     private confs: Confs = new Confs();
@@ -67,16 +68,14 @@ export class UserAuthentication {
     }
 
     public login = async (req: Request, res: Response) => {
-        const {email, password} = req.body;
+        const requestUser = req.body.user;
 
-        return console.log(email, password);
+        const user = await User.findOne({email: requestUser.email}).select('+passWord');
+        
+        if (!user) return res.status(400).json({message: 'Incorrect email or password'});
     
-        const user = await User.findOne({email}).select('+password');
-    
-        if (!user) return res.status(400).json({err: 'User not found'});
-    
-        if (!await bcrypt.compare(password, user.password))
-            return res.status(400).json({err: 'Invalid password'});
+        if (!await bcrypt.compare(requestUser.passWord, user.passWord))
+            return res.status(400).json({message: 'Incorrect email or password'});
     
         const token = this.generateToken({id: user.id});
         res.status(200).json({'user': user, 'token': token});

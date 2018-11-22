@@ -15,7 +15,7 @@ const mongoose = require("mongoose");
 const customerModel_1 = require("../models/customerModel");
 const userModel_1 = require("../models/userModel");
 const Customer = mongoose.model('Customer', customerModel_1.CustomerSchema);
-const User = mongoose.model('User', userModel_1.UserSchema);
+const User = mongoose.model('user', userModel_1.UserSchema, 'users');
 // export class CustomerAuthentication {
 //     private confs: Confs = new Confs();
 //     private generateToken(params: {}) {
@@ -61,13 +61,12 @@ class UserAuthentication {
             });
         });
         this.login = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { email, password } = req.body;
-            return console.log(email, password);
-            const user = yield User.findOne({ email }).select('+password');
+            const requestUser = req.body.user;
+            const user = yield User.findOne({ email: requestUser.email }).select('+passWord');
             if (!user)
-                return res.status(400).json({ err: 'User not found' });
-            if (!(yield bcrypt.compare(password, user.password)))
-                return res.status(400).json({ err: 'Invalid password' });
+                return res.status(400).json({ message: 'Incorrect email or password' });
+            if (!(yield bcrypt.compare(requestUser.passWord, user.passWord)))
+                return res.status(400).json({ message: 'Incorrect email or password' });
             const token = this.generateToken({ id: user.id });
             res.status(200).json({ 'user': user, 'token': token });
         });

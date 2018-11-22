@@ -6,46 +6,56 @@ import './Login.css';
 
 export default class Login extends Component {
   state = {
-    username: '',
-    password: ''
+    email: '',
+    passWord: ''
   };
 
-  changeUserName = e => {
-    this.setState({ username: e.target.value });
+  changeEmail = e => {
+    this.setState({ email: e.target.value });
   };
 
   changePassword = e => {
-    this.setState({ password: e.target.value });
+    this.setState({ passWord: e.target.value });
   };
 
   submitForm = async e => {
     e.preventDefault();
     
-    const { username, password } = this.state;
+    const { email, passWord } = this.state;
 
-    if (!username.length) return alert('E-mail obrigatório!');
-    if (!password.length) return alert('A senha obrigatória!');
+    if (!email.length) return alert('E-mail obrigatório!');
+    if (!passWord.length) return alert('A senha obrigatória!');
 
-    localStorage.setItem('@user:username', username);
-    localStorage.setItem('@user:password', password);
+    localStorage.setItem('@user:email', email);
+    localStorage.setItem('@user:password', passWord);
 
     await api({
       method: 'post',
       url: '/login',
       data: {
-        email: username,
-        password: password
+        user: this.state
       }
-    }).then(function (response) {
-      console.log(response);
+    }).then(res => {
+        localStorage.setItem('@user:token', res.data.token);
+        return this.props.history.push('/timeline');
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(err => {
+      return alert(err.response.data.message);
     });
 
-    return;
-    
-    this.props.history.push('/timeline');
+    // await api({
+    //   method: 'post',
+    //   url: '/register',
+    //   data: {
+    //     user: this.state
+    //   }
+    // }).then(function (res) {
+    //   localStorage.setItem('@user:token', res.data.token);
+    //   return this.props.history.push('/timeline');
+    // })
+    // .catch(function (err) {
+    //   return alert('Não foi possível efetuar seu cadastro!')
+    // });
   };
   
   render() {
@@ -55,7 +65,7 @@ export default class Login extends Component {
             <form onSubmit={this.submitForm}>
               <input 
                 value={this.state.username}
-                onChange={this.changeUserName}
+                onChange={this.changeEmail}
                 required
                 placeholder="E-mail"/>
                 <input 
