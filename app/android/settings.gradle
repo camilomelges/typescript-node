@@ -1,0 +1,9 @@
+rootProject.name = 'app'
+include ':react-native-android-installed-apps'
+project(':react-native-android-installed-apps').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-installed-apps/android')
+include ':react-native-installed-packages'
+project(':react-native-installed-packages').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-installed-packages/android')
+include ':react-native-device-info'
+project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
+
+include ':app'
