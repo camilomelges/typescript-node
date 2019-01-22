@@ -89,7 +89,9 @@ export default class App extends Component<Props> {
   loadApps = async () => {
     await RNAndroidInstalledApps.getApps()
     .then(response => {
-      const apps = response;
+      const apps = response;  
+      console.log('OLAAAAAAAAAAAAAAAAAAAAAAAAAAR')
+      console.log(response);
       this.setState({ apps });
     })
     .catch(error => {
