@@ -83,6 +83,7 @@ export default class App extends Component<Props> {
   }
   
   componentDidMount() {
+    console.log('OLAAAAAAAAAAAAAAAAAAAAAAAAAAR')
     this.loadApps();
   }
 
